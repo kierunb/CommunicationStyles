@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WCF.Service", "WCFService\WCF.Service.csproj", "{1B1893EA-EDB3-49F0-A5E9-18219447ABB9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WCF.Client", "WCFClient\WCF.Client.csproj", "{C820186E-CBCC-4613-9F01-48F898A0DE3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E5C79C11-943A-44CE-A5E4-FA228A7C04F9}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grpc.Service", "GrpcService\Grpc.Service.csproj", "{2FE3699A-F914-45CB-92E5-371E46416EE9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grpc.Client", "GrpcClient\Grpc.Client.csproj", "{AE4BFAF7-0635-4FDE-AC05-A933DECD9C71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataApiBuilder", "DataApiBuilder", "{1C6A2104-4227-44BD-9A28-14BF1894CDB9}"
+	ProjectSection(SolutionItems) = preProject
+		DataApiBuilder\configure-dab.ps1 = DataApiBuilder\configure-dab.ps1
+		DataApiBuilder\dab-config.json = DataApiBuilder\dab-config.json
+		DataApiBuilder\run-dab.ps1 = DataApiBuilder\run-dab.ps1
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.Worker", "MassTransitWorker\MassTransit.Worker.csproj", "{978056F2-828F-4E10-A3F0-554256FE8CCB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.Contracts", "MassTransit.Contracts\MassTransit.Contracts.csproj", "{401985F3-2038-4FE9-AC10-CC6712EA3036}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MassTransit.WebAPI", "MassTransit.WebAPI\MassTransit.WebAPI.csproj", "{96663285-DAA3-4754-B5EF-648283B3F1FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yarp.Proxy", "Yarp.Proxy\Yarp.Proxy.csproj", "{6882C281-BEF5-417D-8159-B35148700018}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B1893EA-EDB3-49F0-A5E9-18219447ABB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B1893EA-EDB3-49F0-A5E9-18219447ABB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B1893EA-EDB3-49F0-A5E9-18219447ABB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B1893EA-EDB3-49F0-A5E9-18219447ABB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C820186E-CBCC-4613-9F01-48F898A0DE3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C820186E-CBCC-4613-9F01-48F898A0DE3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C820186E-CBCC-4613-9F01-48F898A0DE3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C820186E-CBCC-4613-9F01-48F898A0DE3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FE3699A-F914-45CB-92E5-371E46416EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FE3699A-F914-45CB-92E5-371E46416EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FE3699A-F914-45CB-92E5-371E46416EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FE3699A-F914-45CB-92E5-371E46416EE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE4BFAF7-0635-4FDE-AC05-A933DECD9C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE4BFAF7-0635-4FDE-AC05-A933DECD9C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE4BFAF7-0635-4FDE-AC05-A933DECD9C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE4BFAF7-0635-4FDE-AC05-A933DECD9C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{978056F2-828F-4E10-A3F0-554256FE8CCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{978056F2-828F-4E10-A3F0-554256FE8CCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{978056F2-828F-4E10-A3F0-554256FE8CCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{978056F2-828F-4E10-A3F0-554256FE8CCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{401985F3-2038-4FE9-AC10-CC6712EA3036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{401985F3-2038-4FE9-AC10-CC6712EA3036}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{401985F3-2038-4FE9-AC10-CC6712EA3036}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{401985F3-2038-4FE9-AC10-CC6712EA3036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96663285-DAA3-4754-B5EF-648283B3F1FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96663285-DAA3-4754-B5EF-648283B3F1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96663285-DAA3-4754-B5EF-648283B3F1FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96663285-DAA3-4754-B5EF-648283B3F1FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6882C281-BEF5-417D-8159-B35148700018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6882C281-BEF5-417D-8159-B35148700018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6882C281-BEF5-417D-8159-B35148700018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6882C281-BEF5-417D-8159-B35148700018}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8214967-B9E3-450A-A1E9-33EABCDA11D9}
+	EndGlobalSection
+EndGlobal
