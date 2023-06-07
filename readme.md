@@ -58,3 +58,26 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
 - [Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview)
 - [MassTransit](https://masstransit-project.com/)
 - [MassTransit Docs](https://masstransit.io/documentation/concepts)
+- Mass Transit Samples:
+    - [Sample-DotNetConf](https://github.com/phatboyg/Sample-DotNetConf)
+    - [Sample-JobConsumers](https://github.com/MassTransit/Sample-JobConsumers)
+    - [Sample-Twitch](https://github.com/MassTransit/Sample-Twitch)
+
+### MassTransit Demos
+
+All demos require RabbitMQ to be installed and running (e.g. in container).
+
+- **Asynchronous Communication**
+    - Start MassTransit.WebApi (use TestController endpoints)
+    - Start MassTransit.Worker
+- **Competing Consumers / Load Balancing** - 
+    - Start MassTransit.WebApi (use TestController endpoints)
+    - Start two or more instances of MassTransit.Worker
+- **Temporal Decoupling**
+    - Start MassTransit.WebApi (use TestController endpoints)
+    - Invoke API few times to send messages to the queue
+    - Start MassTransit.Worker to consume messages from the queue
+
+More Info:
+- [Asynchronous Messaging Primer](https://learn.microsoft.com/en-us/previous-versions/msp-n-p/dn589781(v=pandp.10))
+- [Competing Consumers](https://learn.microsoft.com/en-us/azure/architecture/patterns/competing-consumers)
