@@ -48,10 +48,23 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
 - [Server-Sent Events](https://www.wikiwand.com/en/Server-sent_events)
 - [Long Polling](https://stackoverflow.com/questions/11077857/what-are-long-polling-websockets-server-sent-events-sse-and-comet)
 
+## Messaging with EasyNetQ over RabbitMQ
+- [EasyNetQ](https://github.com/EasyNetQ/EasyNetQ)
+- [Docs](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
+
+### Demos
+- **Competing Consumers**
+    - Start 2+ Subscribers and 1 Publisher
+- **Temporal Decoupling**
+    - Start 1 Publisher, send some messages then start 1 Subsriber
 
 ## Messaging with MassTransit over RabbitMQ
 - [Asynchronous message-based communication](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/asynchronous-message-based-communication)
 - [Messaging Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/category/messaging)
+    - [Messages](https://masstransit.io/documentation/concepts/messages)
+    - [Consumer](https://masstransit.io/documentation/concepts/consumers)
+    - [Producer](https://masstransit.io/documentation/concepts/producers)
+    - [Request/Response](https://masstransit.io/documentation/concepts/requests)
 - [RabbitMQ](https://www.rabbitmq.com/#features)
 - [RabbitMQ Introduction](https://www.cloudamqp.com/blog/part1-rabbitmq-for-beginners-what-is-rabbitmq.html)
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
