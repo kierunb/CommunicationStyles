@@ -2,6 +2,8 @@ using MassTransit;
 using MassTransit.Worker;
 using System.Reflection;
 
+Console.WriteLine(">> Hello, MassTransit Worker!\n");
+
 var assembly = Assembly.GetEntryAssembly();
 
 IHost host = Host.CreateDefaultBuilder(args)

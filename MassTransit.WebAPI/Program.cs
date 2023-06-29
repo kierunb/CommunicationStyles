@@ -1,6 +1,8 @@
 using MassTransit;
 using MassTransit.Contracts;
 
+Console.WriteLine(">> Hello, MassTransit WebAPI!\n");
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();

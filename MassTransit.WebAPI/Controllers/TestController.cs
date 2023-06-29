@@ -1,4 +1,5 @@
-﻿using MassTransit.Contracts;
+﻿using MassTransit.Clients;
+using MassTransit.Contracts;
 using MassTransit.WebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,15 @@ namespace MassTransit.WebAPI.Controllers
                 new PingMessage { PingId = NewId.NextGuid(), Message = "Ping message" });
             
             return Accepted();
+        }
+
+        [HttpPost("ping-pong")]
+        public async Task<IActionResult> PingPong([FromServices] IRequestClient<PingRequest> requestClient)
+        {
+            var resonse = await requestClient.GetResponse<PingResponse>(
+                               new PingRequest { Message = $"Ping request {DateTime.Now}" });
+            
+            return Ok(resonse.Message);
         }
 
     }
