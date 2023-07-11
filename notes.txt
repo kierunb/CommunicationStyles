@@ -1,0 +1,5 @@
+>> Exchange
+
+Exchanges are AMQP 0-9-1 entities where messages are sent to. 
+Exchanges take a message and route it into zero or more queues. 
+The routing algorithm used depends on the exchange type and rules called bindings.

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WCF.Client", "WCFClient\WCF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E5C79C11-943A-44CE-A5E4-FA228A7C04F9}"
 	ProjectSection(SolutionItems) = preProject
+		masstransit-sagas-examples.md = masstransit-sagas-examples.md
+		notes.txt = notes.txt
 		readme.md = readme.md
 	EndProjectSection
 EndProject
@@ -31,11 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MassTransit.WebAPI", "MassT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yarp.Proxy", "Yarp.Proxy\Yarp.Proxy.csproj", "{6882C281-BEF5-417D-8159-B35148700018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNetQ.Publisher", "EasyNetQ.Publisher\EasyNetQ.Publisher.csproj", "{E0149567-CBD4-4D37-BE22-D2884CA5B888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNetQ.Publisher", "EasyNetQ.Publisher\EasyNetQ.Publisher.csproj", "{E0149567-CBD4-4D37-BE22-D2884CA5B888}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNetQ.Subscriber", "EasyNetQ.Subscriber\EasyNetQ.Subscriber.csproj", "{6AD0F3C2-28E7-4098-873B-AE992796985D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNetQ.Subscriber", "EasyNetQ.Subscriber\EasyNetQ.Subscriber.csproj", "{6AD0F3C2-28E7-4098-873B-AE992796985D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyNetQ.Messages", "EasyNetQ.Messages\EasyNetQ.Messages.csproj", "{DBF40143-93BB-4BF7-A8B7-D2764CD9786F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNetQ.Messages", "EasyNetQ.Messages\EasyNetQ.Messages.csproj", "{DBF40143-93BB-4BF7-A8B7-D2764CD9786F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

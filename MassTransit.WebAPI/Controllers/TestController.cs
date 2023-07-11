@@ -18,6 +18,9 @@ namespace MassTransit.WebAPI.Controllers
             _logger = logger;
         }
 
+        // IPublishEndpoint to implement REPR (Request-Endpoint-Response) Pattern
+
+        // Competing Consumers
         [HttpPost("ping")]
         public async Task<IActionResult> Ping([FromServices] IPublishEndpoint publishEndpoint)
         {
@@ -27,6 +30,7 @@ namespace MassTransit.WebAPI.Controllers
             return Accepted();
         }
 
+        // Request/Reply
         [HttpPost("ping-pong")]
         public async Task<IActionResult> PingPong([FromServices] IRequestClient<PingRequest> requestClient)
         {

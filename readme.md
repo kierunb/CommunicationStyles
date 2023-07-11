@@ -61,20 +61,24 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
 ## Messaging with MassTransit over RabbitMQ
 - [Asynchronous message-based communication](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/asynchronous-message-based-communication)
 - [Messaging Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/category/messaging)
-    - [Messages](https://masstransit.io/documentation/concepts/messages)
-    - [Consumer](https://masstransit.io/documentation/concepts/consumers)
-    - [Producer](https://masstransit.io/documentation/concepts/producers)
-    - [Request/Response](https://masstransit.io/documentation/concepts/requests)
 - [RabbitMQ](https://www.rabbitmq.com/#features)
 - [RabbitMQ Introduction](https://www.cloudamqp.com/blog/part1-rabbitmq-for-beginners-what-is-rabbitmq.html)
+- [AMQP Model](https://www.rabbitmq.com/tutorials/amqp-concepts.html)
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview)
 - [MassTransit](https://masstransit-project.com/)
 - [MassTransit Docs](https://masstransit.io/documentation/concepts)
+    - [Messages](https://masstransit.io/documentation/concepts/messages)
+    - [Consumer](https://masstransit.io/documentation/concepts/consumers)
+    - [Producer](https://masstransit.io/documentation/concepts/producers)
+    - [Request/Response](https://masstransit.io/documentation/concepts/requests)
+    - [Sagas](https://masstransit.io/documentation/patterns/saga)
 - Mass Transit Samples:
     - [Sample-DotNetConf](https://github.com/phatboyg/Sample-DotNetConf)
     - [Sample-JobConsumers](https://github.com/MassTransit/Sample-JobConsumers)
     - [Sample-Twitch](https://github.com/MassTransit/Sample-Twitch)
+    - [SuuCat-Sample-MicroserviceApp](https://github.com/ebubekirdinc/SuuCat)
+    - [Saga State Machine & MassTransit](https://github.com/bariscantanriverdi/SagaStateMachine-Async-Messaging/)
 
 ### MassTransit Demos
 
