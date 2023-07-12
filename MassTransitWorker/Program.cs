@@ -1,5 +1,6 @@
 using MassTransit;
 using MassTransit.Worker;
+using MassTransit.Worker.Activities;
 using MassTransit.Worker.Database;
 using MassTransit.Worker.Sagas;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,8 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             x.SetKebabCaseEndpointNameFormatter();
 
-            // By default, sagas are in-memory, but should be changed to a durable
-            // saga repository.
-            x.SetInMemorySagaRepositoryProvider();
+            // By default, sagas are in-memory, but should be changed to a durable saga repository.
+            //x.SetInMemorySagaRepositoryProvider();
 
             x.AddSagaStateMachine<OrderStateMachine, OrderState>()
                     .EntityFrameworkRepository(r =>
@@ -60,6 +60,8 @@ IHost host = Host.CreateDefaultBuilder(args)
                 m.MigrationsHistoryTable($"__{nameof(OrderDbContext)}");
             });
         });
+
+        services.AddTransient<IOrderSubmittedService, OrderSubmittedService>();
 
         services.AddHostedService<Worker>();
     })

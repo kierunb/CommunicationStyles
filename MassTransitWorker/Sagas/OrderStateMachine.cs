@@ -1,4 +1,5 @@
 ﻿using MassTransit.Contracts;
+using MassTransit.Worker.Activities;
 
 namespace MassTransit.Worker.Sagas;
 
@@ -50,6 +51,7 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
         DuringAny(
             When(SubmitOrder)
                 .Then(x => x.Saga.OrderNumber = x.Message.OrderNumber),
+                //.Activity(x => x.OfType<PublishOrderSubmittedActivity>()) // invoke custome activity
             When(GetOrder)
                 .RespondAsync(x => x.Init<Order>(new
                 {
@@ -57,7 +59,16 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
                     x.Saga.OrderNumber,
                     Status = x.StateMachine.Accessor.Get(x)
                 })));
-        
+
+        // scheduled event
+
+        //Schedule(() => OrderCompletionTimeout, instance => instance.OrderCompletionTimeoutTokenId, s =>
+        //{
+        //    s.Delay = TimeSpan.FromDays(30);
+
+        //    s.Received = r => r.CorrelateById(context => context.Message.OrderId);
+        //});
+
         _logger = logger;
     }
 
