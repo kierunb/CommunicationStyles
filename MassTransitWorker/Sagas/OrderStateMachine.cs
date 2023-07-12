@@ -51,7 +51,7 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
         DuringAny(
             When(SubmitOrder)
                 .Then(x => x.Saga.OrderNumber = x.Message.OrderNumber),
-                //.Activity(x => x.OfType<PublishOrderSubmittedActivity>()) // invoke custome activity
+                //.Activity(x => x.OfType<PublishOrderSubmittedActivity>()) // invoke custom activity
             When(GetOrder)
                 .RespondAsync(x => x.Init<Order>(new
                 {

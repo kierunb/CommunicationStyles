@@ -95,6 +95,12 @@ All demos require RabbitMQ to be installed and running (e.g. in container).
     - Invoke API few times to send messages to the queue
     - Start MassTransit.Worker to consume messages from the queue
 
-More Info:
+
+### Libraries & Tools to explore
+
+
+- [CAP](https://github.com/dotnetcore/CAP)
+
+### More Info
 - [Asynchronous Messaging Primer](https://learn.microsoft.com/en-us/previous-versions/msp-n-p/dn589781(v=pandp.10))
 - [Competing Consumers](https://learn.microsoft.com/en-us/azure/architecture/patterns/competing-consumers)

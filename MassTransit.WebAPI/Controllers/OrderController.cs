@@ -20,10 +20,7 @@ public class OrderController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(OrderModel), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Submit(
-        [FromBody] SubmitOrderModel orderModel, 
-        CancellationToken cancellationToken,
-        [FromServices] IPublishEndpoint publishEndpoint)
+    public async Task<IActionResult> Submit([FromBody] SubmitOrderModel orderModel, CancellationToken cancellationToken, [FromServices] IPublishEndpoint publishEndpoint)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -44,10 +41,7 @@ public class OrderController : ControllerBase
 
     [HttpGet("{orderId}")]
     [ProducesResponseType(typeof(OrderModel), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get(
-        Guid orderId, 
-        CancellationToken cancellationToken,
-        [FromServices] IRequestClient<GetOrder> getOrderClient)
+    public async Task<IActionResult> Get(Guid orderId, CancellationToken cancellationToken, [FromServices] IRequestClient<GetOrder> getOrderClient)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
@@ -78,10 +72,7 @@ public class OrderController : ControllerBase
 
     [HttpPost("{orderId}/accept")]
     [ProducesResponseType(typeof(OrderModel), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Accept(
-        Guid orderId, 
-        CancellationToken cancellationToken,
-        [FromServices] IRequestClient<AcceptOrder> acceptOrderClient)
+    public async Task<IActionResult> Accept(Guid orderId, CancellationToken cancellationToken, [FromServices] IRequestClient<AcceptOrder> acceptOrderClient)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
