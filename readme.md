@@ -48,13 +48,59 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
 - [Server-Sent Events](https://www.wikiwand.com/en/Server-sent_events)
 - [Long Polling](https://stackoverflow.com/questions/11077857/what-are-long-polling-websockets-server-sent-events-sse-and-comet)
 
+## Messaging with EasyNetQ over RabbitMQ
+- [EasyNetQ](https://github.com/EasyNetQ/EasyNetQ)
+- [Docs](https://github.com/EasyNetQ/EasyNetQ/wiki/Introduction)
+
+### Demos
+- **Competing Consumers**
+    - Start 2+ Subscribers and 1 Publisher
+- **Temporal Decoupling**
+    - Start 1 Publisher, send some messages then start 1 Subsriber
 
 ## Messaging with MassTransit over RabbitMQ
 - [Asynchronous message-based communication](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/architect-microservice-container-applications/asynchronous-message-based-communication)
 - [Messaging Patterns](https://learn.microsoft.com/en-us/azure/architecture/patterns/category/messaging)
 - [RabbitMQ](https://www.rabbitmq.com/#features)
 - [RabbitMQ Introduction](https://www.cloudamqp.com/blog/part1-rabbitmq-for-beginners-what-is-rabbitmq.html)
+- [AMQP Model](https://www.rabbitmq.com/tutorials/amqp-concepts.html)
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview)
 - [MassTransit](https://masstransit-project.com/)
 - [MassTransit Docs](https://masstransit.io/documentation/concepts)
+    - [Messages](https://masstransit.io/documentation/concepts/messages)
+    - [Consumer](https://masstransit.io/documentation/concepts/consumers)
+    - [Producer](https://masstransit.io/documentation/concepts/producers)
+    - [Request/Response](https://masstransit.io/documentation/concepts/requests)
+    - [Sagas](https://masstransit.io/documentation/patterns/saga)
+- Mass Transit Samples:
+    - [Sample-DotNetConf](https://github.com/phatboyg/Sample-DotNetConf)
+    - [Sample-JobConsumers](https://github.com/MassTransit/Sample-JobConsumers)
+    - [Sample-Twitch](https://github.com/MassTransit/Sample-Twitch)
+    - [SuuCat-Sample-MicroserviceApp](https://github.com/ebubekirdinc/SuuCat)
+    - [Saga State Machine & MassTransit](https://github.com/bariscantanriverdi/SagaStateMachine-Async-Messaging/)
+
+### MassTransit Demos
+
+All demos require RabbitMQ to be installed and running (e.g. in container).
+
+- **Asynchronous Communication**
+    - Start MassTransit.WebApi (use TestController endpoints)
+    - Start MassTransit.Worker
+- **Competing Consumers / Load Balancing** - 
+    - Start MassTransit.WebApi (use TestController endpoints)
+    - Start two or more instances of MassTransit.Worker
+- **Temporal Decoupling**
+    - Start MassTransit.WebApi (use TestController endpoints)
+    - Invoke API few times to send messages to the queue
+    - Start MassTransit.Worker to consume messages from the queue
+
+
+### Libraries & Tools to explore
+
+
+- [CAP](https://github.com/dotnetcore/CAP)
+
+### More Info
+- [Asynchronous Messaging Primer](https://learn.microsoft.com/en-us/previous-versions/msp-n-p/dn589781(v=pandp.10))
+- [Competing Consumers](https://learn.microsoft.com/en-us/azure/architecture/patterns/competing-consumers)

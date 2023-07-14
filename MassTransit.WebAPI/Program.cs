@@ -1,8 +1,11 @@
 using MassTransit;
 using MassTransit.Contracts;
 
+Console.WriteLine(">> Hello, MassTransit WebAPI!\n");
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -50,5 +53,7 @@ app.MapGet("/send-message", async (IBus bus) =>
 })
 .WithName("Send Message")
 .WithOpenApi();
+
+app.MapControllers();
 
 app.Run();
