@@ -65,6 +65,7 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
 - [RabbitMQ Introduction](https://www.cloudamqp.com/blog/part1-rabbitmq-for-beginners-what-is-rabbitmq.html)
 - [AMQP Model](https://www.rabbitmq.com/tutorials/amqp-concepts.html)
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
+- [RabbitMQ Reliability](https://www.rabbitmq.com/reliability.html)
 - [Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview)
 - [MassTransit](https://masstransit-project.com/)
 - [MassTransit Docs](https://masstransit.io/documentation/concepts)
@@ -72,7 +73,7 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
     - [Consumer](https://masstransit.io/documentation/concepts/consumers)
     - [Producer](https://masstransit.io/documentation/concepts/producers)
     - [Request/Response](https://masstransit.io/documentation/concepts/requests)
-    - [Sagas](https://masstransit.io/documentation/patterns/saga)
+    - [Sagas](https://masstransit.io/documentation/patterns/saga)   
 - Mass Transit Samples:
     - [Sample-DotNetConf](https://github.com/phatboyg/Sample-DotNetConf)
     - [Sample-JobConsumers](https://github.com/MassTransit/Sample-JobConsumers)
@@ -96,11 +97,35 @@ All demos require RabbitMQ to be installed and running (e.g. in container).
     - Start MassTransit.Worker to consume messages from the queue
 
 
-### Libraries & Tools to explore
+## Reliability patterns and techniques
 
+- [IHttpClientFactory and Polly policies](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
+- [Polly and HttpClientFactory](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory)
+- [Resiliency in gRPC](https://learn.microsoft.com/en-us/aspnet/core/grpc/retries?view=aspnetcore-7.0)
+    - Example: Grpc.Client, Program.cs
+- [Client-side Load Balancing](https://learn.microsoft.com/en-us/aspnet/core/grpc/loadbalancing?view=aspnetcore-7.0)
+- [Connection Resiliency in Entity Framework Core](https://learn.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency)
+- [Polly](https://github.com/App-vNext/Polly)
+- [Simmy](https://github.com/Polly-Contrib/Simmy)
+- [Simmy, the monkey for making chaos](https://www.thepollyproject.org/2019/06/27/simmy-the-monkey-for-making-chaos/)
+- [Rate limiting in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/performance/rate-limit?view=aspnetcore-7.0)
+
+## Load & Stress Testing
+
+- [Load test types](https://k6.io/docs/test-types/load-test-types/)
+- Tools and Apps:
+    - [Apache JMeter](https://jmeter.apache.org/)
+    - [NBomber](https://nbomber.com/)
+        - [Examples](https://github.com/PragmaticFlow/NBomber/tree/dev/examples/Demo)
+        - [Tutorial](https://nbomber.com/docs/getting-started/hello_world_tutorial/)
+        - Example: FaultyWebAPI.LoadTest, 
+    - [k6](https://k6.io/docs/)
+    - [Locust](https://locust.io/)
+
+## Libraries & Tools to explore
 
 - [CAP](https://github.com/dotnetcore/CAP)
 
-### More Info
+## More Info
 - [Asynchronous Messaging Primer](https://learn.microsoft.com/en-us/previous-versions/msp-n-p/dn589781(v=pandp.10))
 - [Competing Consumers](https://learn.microsoft.com/en-us/azure/architecture/patterns/competing-consumers)
