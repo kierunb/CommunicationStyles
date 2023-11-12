@@ -97,6 +97,20 @@ All demos require RabbitMQ to be installed and running (e.g. in container).
     - Start MassTransit.Worker to consume messages from the queue
 
 
+### MassTransit and Rabbit MQ Observability features
+
+**MassTransit.WebApi** and **MassTransit.Worker** projects are configured to use some observability features like:
+
+- Metrics via Prometheus and Grafana (in MassTransit.WebApi only)
+    - Metrics are available at "http://localhost:5089/metrics" for MassTransit.WebApi and "http://localhost:15692/metrics" for RabbitMQ instance.
+        - Following Grafana Dashboards are used:
+            - https://grafana.com/grafana/dashboards/10991-rabbitmq-overview/
+            - https://grafana.com/grafana/dashboards/17680-masstransit-messages-monitoring/
+- Distributed Traces via Jeager
+    - Traces are sent to OLTP endpoint at port 4317 in Jeager instance from MassTransit.WebApi and MassTransit.Worker.
+- More information on Observability configuration in Mass Trasnit is available [here](https://masstransit.io/documentation/configuration/observability).
+
+
 ## Reliability patterns and techniques
 
 - [IHttpClientFactory and Polly policies](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)

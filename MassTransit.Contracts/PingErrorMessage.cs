@@ -1,6 +1,6 @@
 ﻿namespace MassTransit.Contracts;
 
-public record PingMessage
+public record PingErrorMessage
 {
     public Guid PingId { get; init; }
     public DateTime Timestamp { get; set; }

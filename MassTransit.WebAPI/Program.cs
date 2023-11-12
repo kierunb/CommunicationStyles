@@ -1,5 +1,10 @@
 using MassTransit;
 using MassTransit.Contracts;
+using MassTransit.Logging;
+using MassTransit.Monitoring;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 Console.WriteLine(">> Hello, MassTransit WebAPI!\n");
 
@@ -32,6 +37,22 @@ builder.Services.AddMassTransit(x =>
     });
 });
 
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(r =>
+        r.AddService("MassTransit.WebAPI",
+            serviceVersion: "1.0",
+            serviceInstanceId: Environment.MachineName))
+    .WithTracing(b => b
+        .AddSource(DiagnosticHeaders.DefaultListenerName) // MassTransit ActivitySource
+        .AddAspNetCoreInstrumentation()
+        //.AddConsoleExporter()
+        .AddOtlpExporter(opts => { opts.Endpoint = new Uri("http://localhost:4317"); }))   // for jeager with OLTP endpoint
+     .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddMeter(InstrumentationOptions.MeterName) // MassTransit Meters
+        .AddProcessInstrumentation()                // CPU, RAM, etc.
+        //.AddConsoleExporter()
+        .AddPrometheusExporter()); 
 
 var app = builder.Build();
 
@@ -55,5 +76,7 @@ app.MapGet("/send-message", async (IBus bus) =>
 .WithOpenApi();
 
 app.MapControllers();
+
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.Run();

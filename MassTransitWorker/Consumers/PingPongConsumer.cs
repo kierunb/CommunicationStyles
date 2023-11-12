@@ -13,7 +13,7 @@ public class PingPongConsumer : IConsumer<PingRequest>
 
     public async Task Consume(ConsumeContext<PingRequest> context)
     {
-        _logger.LogInformation("Consumed PingMessage with message: {Message}", context.Message.Message);
+        _logger.LogInformation("Consumed PingRequest with message: {Message}", context.Message.Message);
         await context.RespondAsync(new PingResponse { ResponseMessage = $"Pong: {context.Message.Message}" });
     }
 }
