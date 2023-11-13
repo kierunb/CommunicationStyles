@@ -1,12 +1,29 @@
 using MassTransit;
+using MassTransit.Logging;
 using MassTransit.Worker;
 using MassTransit.Worker.Activities;
 using MassTransit.Worker.Database;
 using MassTransit.Worker.Sagas;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 using System.Reflection;
 
 Console.WriteLine(">> Hello, MassTransit Worker!\n");
+
+Sdk.CreateTracerProviderBuilder()
+    .ConfigureResource(r =>
+        r.AddService("MassTransit.Worker",
+            serviceVersion: "1.0",
+            serviceInstanceId: Environment.MachineName))
+    //.AddMeter(InstrumentationOptions.MeterName) // MassTransit Meter
+    .AddSource(DiagnosticHeaders.DefaultListenerName) // MassTransit ActivitySource
+    //.AddConsoleExporter() // Any OTEL suportable exporter can be used here
+    .AddOtlpExporter(opts => { opts.Endpoint = new Uri("http://localhost:4317"); })   // for jeager with OLTP endpoint
+    .Build();
+
+// TODO: Add Metrics and Prometheus exporter
 
 var assembly = Assembly.GetEntryAssembly();
 

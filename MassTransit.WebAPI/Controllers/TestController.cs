@@ -30,6 +30,15 @@ namespace MassTransit.WebAPI.Controllers
             return Accepted();
         }
 
+        [HttpPost("ping-error")]
+        public async Task<IActionResult> PingError([FromServices] IPublishEndpoint publishEndpoint)
+        {
+            await publishEndpoint.Publish(
+                new PingErrorMessage { PingId = NewId.NextGuid(), Message = "Ping error message" });
+
+            return Accepted();
+        }
+
         // Request/Reply
         [HttpPost("ping-pong")]
         public async Task<IActionResult> PingPong([FromServices] IRequestClient<PingRequest> requestClient)
@@ -38,6 +47,15 @@ namespace MassTransit.WebAPI.Controllers
                                new PingRequest { Message = $"Ping request {DateTime.Now}" });
             
             return Ok(resonse.Message);
+        }
+
+        [HttpPost("process-raport")]
+        public async Task<IActionResult> ProcessRaport([FromServices] IPublishEndpoint publishEndpoint)
+        {
+            await publishEndpoint.Publish(
+                new ProcessRaportCommand { RaportId = NewId.NextGuid(), RaportName = "Raport 1", RaportContent = "Raport 1 content" });
+
+            return Accepted();
         }
 
     }
