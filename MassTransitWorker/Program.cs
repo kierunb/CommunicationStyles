@@ -2,6 +2,7 @@ using MassTransit;
 using MassTransit.Logging;
 using MassTransit.Worker;
 using MassTransit.Worker.Activities;
+using MassTransit.Worker.Consumers;
 using MassTransit.Worker.Database;
 using MassTransit.Worker.Sagas;
 using Microsoft.EntityFrameworkCore;
@@ -47,10 +48,15 @@ IHost host = Host.CreateDefaultBuilder(args)
 
             var entryAssembly = Assembly.GetEntryAssembly();
 
+            x.AddConsumer<PingMessageSendConsumer>().Endpoint(e => e.Name = "ping-queue");
+            //x.AddConsumer<PingMessageSendConsumer, PingMessageConsumerDefinition>();
+
             x.AddConsumers(entryAssembly);
             x.AddSagaStateMachines(entryAssembly);
             x.AddSagas(entryAssembly);
             x.AddActivities(entryAssembly);
+
+            
 
             // In-memory provider
             //x.UsingInMemory((context, cfg) =>

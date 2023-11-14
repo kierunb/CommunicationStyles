@@ -33,6 +33,19 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
+
+        // error handling and reliability settings:
+        cfg.UseMessageRetry(r => {
+            r.Interval(retryCount: 2, interval: 100);
+            r.Ignore(typeof(StackOverflowException));
+        });
+
+        // redelivery at later time (reqire delayed-exchange plugin):
+        cfg.UseDelayedRedelivery(r => r.Intervals(TimeSpan.FromMinutes(5), TimeSpan.FromMinutes(15), TimeSpan.FromMinutes(30)));
+
+        // outbox pattern to buffer messages until the consumer completes successfully
+        //cfg.UseInMemoryOutbox(context);
+
         cfg.ConfigureEndpoints(context);
     });
 });
@@ -48,9 +61,10 @@ builder.Services.AddOpenTelemetry()
         //.AddConsoleExporter()
         .AddOtlpExporter(opts => { opts.Endpoint = new Uri("http://localhost:4317"); }))   // for jeager with OLTP endpoint
      .WithMetrics(metrics => metrics
+        .AddProcessInstrumentation()                // CPU, RAM, etc.
+        .AddRuntimeInstrumentation()                // .NET runtime metrics - GC, ThreadPool, etc.
         .AddAspNetCoreInstrumentation()
         .AddMeter(InstrumentationOptions.MeterName) // MassTransit Meters
-        .AddProcessInstrumentation()                // CPU, RAM, etc.
         //.AddConsoleExporter()
         .AddPrometheusExporter()); 
 
