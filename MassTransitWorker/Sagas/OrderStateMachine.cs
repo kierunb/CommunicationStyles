@@ -15,6 +15,10 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
 
     public OrderStateMachine(ILogger<OrderStateMachine> logger)
     {
+        _logger = logger;
+
+        #region Events 
+
         Event(() => AcceptOrder, x =>
         {
             x.OnMissingInstance(
@@ -26,14 +30,18 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
             x.OnMissingInstance(
                 m => m.ExecuteAsync(
                     context => context.RespondAsync<OrderNotFound>(new { context.Message.OrderId })));
-        });
+        }); 
+        
+        #endregion
 
         InstanceState(x => x.CurrentState);
+
+        #region Flow 
 
         Initially(
             When(SubmitOrder)
                 .Then(x => x.Saga.OrderNumber = x.Message.OrderNumber)
-                .Then(x => _logger.LogInformation(">> Order {orderId} submitted", x.Message.OrderId))
+                .Then(x => _logger.LogInformation(">> Order {orderId} submitted", x.Message.OrderId))   // invoke custom activity
                 .Publish(x => new PingMessage { Message = $"Order {x.Message.OrderId} submitted" })     // or .Send()
                 .TransitionTo(Submitted));
 
@@ -50,7 +58,7 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
 
         DuringAny(
             When(SubmitOrder)
-                .Then(x => x.Saga.OrderNumber = x.Message.OrderNumber),
+                .Then(x => x.Saga.OrderNumber = x.Message.OrderNumber)
                 //.Activity(x => x.OfType<PublishOrderSubmittedActivity>()) // invoke custom activity
             When(GetOrder)
                 .RespondAsync(x => x.Init<Order>(new
@@ -60,7 +68,9 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
                     Status = x.StateMachine.Accessor.Get(x)
                 })));
 
-        // scheduled event
+        #endregion
+
+        #region Scheduled Events
 
         //Schedule(() => OrderCompletionTimeout, instance => instance.OrderCompletionTimeoutTokenId, s =>
         //{
@@ -69,7 +79,15 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
         //    s.Received = r => r.CorrelateById(context => context.Message.OrderId);
         //});
 
-        _logger = logger;
+        #endregion
+
+        #region Fault-Companse State
+
+        //DuringAny(When(CreateOrderFaultEvent)
+        //    .TransitionTo(CreateOrderFaultedState)
+        //    .Then(context => context.Publish<Fault<TakePaymentEvent>>(new { context.Message })));
+
+        #endregion
     }
 
     public Event<SubmitOrder> SubmitOrder { get; }

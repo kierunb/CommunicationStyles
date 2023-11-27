@@ -2,9 +2,9 @@
 
 public class OrderState : SagaStateMachineInstance
 {
-    public string CurrentState { get; set; }
+    public required string CurrentState { get; set; }
 
-    public string OrderNumber { get; set; }
+    public required string OrderNumber { get; set; }
 
     public Guid CorrelationId { get; set; }
 }
