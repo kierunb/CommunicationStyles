@@ -17,6 +17,8 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
     {
         _logger = logger;
 
+        InstanceState(x => x.CurrentState);
+
         #region Events 
 
         Event(() => AcceptOrder, x =>
@@ -33,8 +35,6 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
         }); 
         
         #endregion
-
-        InstanceState(x => x.CurrentState);
 
         #region Flow 
 
@@ -58,7 +58,7 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
 
         DuringAny(
             When(SubmitOrder)
-                .Then(x => x.Saga.OrderNumber = x.Message.OrderNumber)
+                .Then(x => x.Saga.OrderNumber = x.Message.OrderNumber),
                 //.Activity(x => x.OfType<PublishOrderSubmittedActivity>()) // invoke custom activity
             When(GetOrder)
                 .RespondAsync(x => x.Init<Order>(new
@@ -81,7 +81,7 @@ public class OrderStateMachine : MassTransitStateMachine<OrderState>
 
         #endregion
 
-        #region Fault-Companse State
+        #region Fault-Compansate State
 
         //DuringAny(When(CreateOrderFaultEvent)
         //    .TransitionTo(CreateOrderFaultedState)
