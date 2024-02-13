@@ -39,13 +39,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNetQ.Subscriber", "Easy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyNetQ.Messages", "EasyNetQ.Messages\EasyNetQ.Messages.csproj", "{DBF40143-93BB-4BF7-A8B7-D2764CD9786F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoutingSlipSample", "RoutingSlipSample\RoutingSlipSample.csproj", "{E4503580-1F45-4617-B172-C537E9B2CBFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RoutingSlipSample", "RoutingSlipSample\RoutingSlipSample.csproj", "{E4503580-1F45-4617-B172-C537E9B2CBFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faulty.WebApi", "Faulty.WebApi\Faulty.WebApi.csproj", "{51269C84-F618-4782-B529-6BC10D55D354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Faulty.WebApi", "Faulty.WebApi\Faulty.WebApi.csproj", "{51269C84-F618-4782-B529-6BC10D55D354}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resilient.Client", "Resilient.Client\Resilient.Client.csproj", "{A8E68650-5D25-4C76-8FE0-EA07E9BA19B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resilient.Client", "Resilient.Client\Resilient.Client.csproj", "{A8E68650-5D25-4C76-8FE0-EA07E9BA19B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaultyWebAPI.LoadTests", "FaultyWebAPI.LoadTests\FaultyWebAPI.LoadTests.csproj", "{3AA487E2-817C-4C5D-9944-CF58829A569B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaultyWebAPI.LoadTests", "FaultyWebAPI.LoadTests\FaultyWebAPI.LoadTests.csproj", "{3AA487E2-817C-4C5D-9944-CF58829A569B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gfx", "gfx", "{6EA462F9-EA07-45B7-A7FD-A3CA18AADCC7}"
+	ProjectSection(SolutionItems) = preProject
+		gfx\saga.png = gfx\saga.png
+		gfx\state-machine-workflow.png = gfx\state-machine-workflow.png
+		gfx\SupplyFullfillmentWorkflow.gif = gfx\SupplyFullfillmentWorkflow.gif
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
