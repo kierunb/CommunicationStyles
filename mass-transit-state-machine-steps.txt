@@ -1,0 +1,126 @@
+Saga State Machines
+
+
+
+// Docs:
+// https://masstransit.io/documentation/patterns/saga/state-machine
+
+
+// Steps:
+
+1) Define the state machine instance
+
+An instance contains the data for a state machine instance. 
+A new instance is created for every consumed initial event where an existing instance 
+with the same CorrelationId was not found. A saga repository is used to persist instances.
+
+
+public class OrderState :
+    SagaStateMachineInstance
+
+
+2) Define the state machine
+
+A state machine defines the states, events, and behavior of a finite state machine. 
+Implemented as a class, which is derived from MassTransitStateMachine<T>.
+State machine is created once, and then used to apply event triggered behavior to state machine instances.
+State could be of type State, string or int.
+
+public class OrderStateMachine :
+    MassTransitStateMachine<OrderState>
+
+
+3) Define the states
+
+States represent previously consumed events resulting in an instance being in a current state. 
+An instance can only be in one state at a given time. 
+A new instance defaults to the Initial state, which is automatically defined. 
+The Final state is also defined for all state machines and is used to signify the instance has reached the final state.
+
+public State Submitted { get; private set; }
+public State Accepted { get; private set; }
+
+4) Define the events (and event types)
+
+An event is something that happened which may result in a state change. 
+An event can add or update instance data, as well as changing an instance's current state. 
+The Event<T> is generic, where T must be a valid message type.
+
+public Event<SubmitOrder> SubmitOrder { get; private set; }
+
+4a) Define CorrelationId (Message Correlation)
+
+Messages are usually part of a conversation and identifiers are used to connect messages to that conversation
+https://masstransit.io/documentation/concepts/messages#message-correlation
+
+[ModuleInitializer]
+internal static void Init()
+{
+    GlobalTopology.Send.UseCorrelationId<AcceptInvoice>(x => x.InvoiceId);
+}
+
+5) Define behavior
+
+public OrderStateMachine()
+    {
+        Initially(
+            When(SubmitOrder)
+                .TransitionTo(Submitted));
+    }
+
+6) Define the state machine event activities (optionally)
+
+
+7) Implement Persistence
+
+https://masstransit.io/documentation/patterns/saga/persistence
+
+- Implement DbContext : SagaDbContext
+- Implement StateMap : SagaClassMap<>
+
+public class InvoiceDbContext : SagaDbContext
+{
+
+    public InvoiceDbContext(DbContextOptions<InvoiceDbContext> options) : base(options)
+    {
+    }
+
+    protected override IEnumerable<ISagaClassMap> Configurations { get { yield return new InvoiceStateMap(); } }
+}
+
+
+public class InvoiceStateMap : SagaClassMap<InvoiceState>
+{
+    protected override void Configure(EntityTypeBuilder<InvoiceState> entity, ModelBuilder model)
+    {
+        base.Configure(entity, model);
+
+        entity.Property(x => x.CurrentState).HasMaxLength(40);
+
+        entity.Property(x => x.InvoiceNumber).HasMaxLength(40);
+    }
+}
+
+7a) Configure Persistence
+
+- Setup persistence in the MassTransit configuration for specific state machines.
+- Add DBContext to the service collection
+- Don't forget to create and run migrations
+
+    //x.AddSagaStateMachine<InvoiceStateMachine, InvoiceState>().InMemoryRepository();
+    x.AddSagaStateMachine<InvoiceStateMachine, InvoiceState>()
+        .EntityFrameworkRepository(r =>
+        {
+            r.ExistingDbContext<InvoiceDbContext>();
+            r.UseSqlServer();
+        });
+
+    
+    services.AddDbContext<InvoiceDbContext>(builder =>
+        {
+            builder.UseSqlServer(sagaStateDbConnString, m =>
+            {
+                m.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                m.MigrationsHistoryTable($"__{nameof(InvoiceDbContext)}");
+            });
+        });

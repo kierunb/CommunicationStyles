@@ -26,7 +26,8 @@ Sdk.CreateTracerProviderBuilder()
 
 // TODO: Add Metrics and Prometheus exporter
 
-var assembly = Assembly.GetEntryAssembly();
+string sagaStateDbConnString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MassTransitSagasState;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+var entryAssembly = Assembly.GetEntryAssembly();
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices(services =>
@@ -35,7 +36,6 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             x.SetKebabCaseEndpointNameFormatter();
 
-            // By default, sagas are in-memory, but should be changed to a durable saga repository.
             //x.SetInMemorySagaRepositoryProvider();
 
             x.AddSagaStateMachine<OrderStateMachine, OrderState>()
@@ -45,8 +45,16 @@ IHost host = Host.CreateDefaultBuilder(args)
                         r.UseSqlServer();
                     });
 
+            // Invoice Saga Configuration
 
-            var entryAssembly = Assembly.GetEntryAssembly();
+            //x.AddSagaStateMachine<InvoiceStateMachine, InvoiceState>().InMemoryRepository();
+            x.AddSagaStateMachine<InvoiceStateMachine, InvoiceState>()
+                .EntityFrameworkRepository(r =>
+                {
+                    r.ExistingDbContext<InvoiceDbContext>();
+                    r.UseSqlServer();
+                });
+
 
             x.AddConsumer<PingMessageSendConsumer>().Endpoint(e => e.Name = "ping-queue");
             //x.AddConsumer<PingMessageSendConsumer, PingMessageConsumerDefinition>();
@@ -55,8 +63,6 @@ IHost host = Host.CreateDefaultBuilder(args)
             x.AddSagaStateMachines(entryAssembly);
             x.AddSagas(entryAssembly);
             x.AddActivities(entryAssembly);
-
-            
 
             // In-memory provider
             //x.UsingInMemory((context, cfg) =>
@@ -77,12 +83,22 @@ IHost host = Host.CreateDefaultBuilder(args)
 
         services.AddDbContext<OrderDbContext>(builder =>
         {
-            builder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MassTransitSagas;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False", m =>
+            builder.UseSqlServer(sagaStateDbConnString, m =>
             {
                 m.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
                 m.MigrationsHistoryTable($"__{nameof(OrderDbContext)}");
             });
         });
+
+        services.AddDbContext<InvoiceDbContext>(builder =>
+        {
+            builder.UseSqlServer(sagaStateDbConnString, m =>
+            {
+                m.MigrationsAssembly(Assembly.GetExecutingAssembly().GetName().Name);
+                m.MigrationsHistoryTable($"__{nameof(InvoiceDbContext)}");
+            });
+        });
+
 
         services.AddTransient<IOrderSubmittedService, OrderSubmittedService>();
 
@@ -90,15 +106,20 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
-await CreateDatabase(host);
+await CreateDatabases(host);
 
 host.Run();
 
-static async Task CreateDatabase(IHost host)
+static async Task CreateDatabases(IHost host)
 {
     using var scope = host.Services.CreateScope();
 
-    var context = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+    var contextOrdersDb = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+    var contextInvoicesDb = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
 
-    await context.Database.EnsureCreatedAsync();
+    //await contextOrdersDb.Database.EnsureCreatedAsync();
+    //await contextInvoicesDb.Database.EnsureCreatedAsync();
+    await contextOrdersDb.Database.MigrateAsync();
+    await contextInvoicesDb.Database.MigrateAsync();
+
 }

@@ -5,22 +5,25 @@ using MassTransit.Monitoring;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using System.Reflection;
 
 Console.WriteLine(">> Hello, MassTransit WebAPI!\n");
 
 var builder = WebApplication.CreateBuilder(args);
 
+var entryAssembly = System.Reflection.Assembly.GetEntryAssembly();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAutoMapper(entryAssembly);
 
 builder.Services.AddMassTransit(x =>
 {
     x.SetKebabCaseEndpointNameFormatter();
 
     x.SetInMemorySagaRepositoryProvider();
-
-    var entryAssembly = System.Reflection.Assembly.GetEntryAssembly();
 
     x.AddConsumers(entryAssembly);
     x.AddSagaStateMachines(entryAssembly);

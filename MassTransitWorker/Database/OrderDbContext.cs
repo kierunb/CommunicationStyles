@@ -9,9 +9,7 @@ namespace MassTransit.Worker.Database
         {
         }
 
-        protected override IEnumerable<ISagaClassMap> Configurations
-        {
-            get { yield return new OrderStateMap(); }
-        }
+        protected override IEnumerable<ISagaClassMap> Configurations { get { yield return new OrderStateMap(); } }
     }
+
 }
