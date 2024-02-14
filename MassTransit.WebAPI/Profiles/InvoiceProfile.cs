@@ -8,10 +8,16 @@ public class InvoiceProfile : Profile
 {
     public InvoiceProfile()
     {
-        CreateMap<SubmitInvoiceModel, SubmitInvoice>()
+        CreateMap<SubmitInvoiceCommand, SubmitInvoice>()
             .ReverseMap();
 
-        CreateMap<AcceptInvoiceModel, AcceptInvoice>()
+        CreateMap<AcceptInvoiceCommand, AcceptInvoice>()
+            .ReverseMap();
+
+        CreateMap<FinalizeInvoiceCommand, FinalizeInvoice>()
+            .ReverseMap();
+
+        CreateMap<CurrentInvoiceState, InvoiceModel>()
             .ReverseMap();
     }
 }

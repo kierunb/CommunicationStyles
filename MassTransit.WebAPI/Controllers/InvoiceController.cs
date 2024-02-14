@@ -22,9 +22,9 @@ public class InvoiceController : ControllerBase
     }
 
     [HttpPost("submit")]
-    [ProducesResponseType(typeof(SubmitInvoiceModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SubmitInvoiceCommand), StatusCodes.Status200OK)]
     public async Task<IActionResult> Submit(
-        [FromBody] SubmitInvoiceModel submitInvoiceModel,
+        [FromBody] SubmitInvoiceCommand submitInvoiceModel,
         [FromServices] IPublishEndpoint publishEndpoint,
         CancellationToken cancellationToken)
     {
@@ -33,7 +33,7 @@ public class InvoiceController : ControllerBase
 
         await publishEndpoint.Publish<SubmitInvoice>(_mapper.Map<SubmitInvoice>(submitInvoiceModel), cancellationToken);
 
-        return Accepted(new SubmitInvoiceModel
+        return Accepted(new SubmitInvoiceCommand
         {
             InvoiceId = submitInvoiceModel.InvoiceId,
             InvoiceNumber = submitInvoiceModel.InvoiceNumber,
@@ -41,10 +41,36 @@ public class InvoiceController : ControllerBase
         });
     }
 
+    [HttpGet("{invoiceId}")]
+    [ProducesResponseType(typeof(InvoiceModel), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get(Guid invoiceId, CancellationToken cancellationToken, [FromServices] IRequestClient<GetInvoice> getInvoiceClient)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var response = await getInvoiceClient.GetResponse<CurrentInvoiceState>(new
+        {
+            invoiceId,
+        }, cancellationToken);
+
+        return response switch
+        {
+            (_, CurrentInvoiceState x) => Ok(new InvoiceModel
+            {
+                InvoiceId = x.InvoiceId,
+                InvoiceNumber = x.InvoiceNumber,
+                InvoiceDate = x.InvoiceDate,
+                Amount = x.Amount,
+                Status = x.Status
+            }),
+            _ => NotFound()
+        };
+    }
+
     [HttpPost("accept")]
-    [ProducesResponseType(typeof(AcceptInvoiceModel), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(AcceptInvoiceCommand), StatusCodes.Status200OK)]
     public async Task<IActionResult> Accept(
-        [FromBody] AcceptInvoiceModel acceptInvoiceModel,
+        [FromBody] AcceptInvoiceCommand acceptInvoiceModel,
         [FromServices] IPublishEndpoint publishEndpoint,
         CancellationToken cancellationToken)
     {
@@ -53,11 +79,31 @@ public class InvoiceController : ControllerBase
 
         await publishEndpoint.Publish<AcceptInvoice>(_mapper.Map<AcceptInvoice>(acceptInvoiceModel), cancellationToken);
 
-        return Accepted(new SubmitInvoiceModel
+        return Accepted(new SubmitInvoiceCommand
         {
             InvoiceId = acceptInvoiceModel.InvoiceId,
             InvoiceNumber = acceptInvoiceModel.InvoiceNumber,
             Amount = acceptInvoiceModel.Amount
+        });
+    }
+
+
+    [HttpPost("finalize")]
+    [ProducesResponseType(typeof(FinalizeInvoiceCommand), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Finalize(
+    [FromBody] FinalizeInvoiceCommand finalizeInvoiceModel,
+    [FromServices] IPublishEndpoint publishEndpoint,
+    CancellationToken cancellationToken)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        await publishEndpoint.Publish<FinalizeInvoice>(_mapper.Map<FinalizeInvoice>(finalizeInvoiceModel), cancellationToken);
+
+        return Accepted(new FinalizeInvoiceCommand
+        {
+            InvoiceId = finalizeInvoiceModel.InvoiceId,
+            InvoiceNumber = finalizeInvoiceModel.InvoiceNumber
         });
     }
 }
