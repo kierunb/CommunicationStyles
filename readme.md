@@ -73,7 +73,8 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
     - [Consumer](https://masstransit.io/documentation/concepts/consumers)
     - [Producer](https://masstransit.io/documentation/concepts/producers)
     - [Request/Response](https://masstransit.io/documentation/concepts/requests)
-    - [Sagas](https://masstransit.io/documentation/patterns/saga)   
+    - [Sagas](https://masstransit.io/documentation/patterns/saga)
+    - [State Machines vs Sequential Workflows](https://dpcrew.wordpress.com/2015/04/27/state-machine-or-sequential-workflows-what-is-the-future-of-business-processes/)
 - Mass Transit Samples:
     - [Sample-DotNetConf](https://github.com/phatboyg/Sample-DotNetConf)
     - [Sample-JobConsumers](https://github.com/MassTransit/Sample-JobConsumers)
