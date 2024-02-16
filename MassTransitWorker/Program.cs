@@ -5,6 +5,7 @@ using MassTransit.Worker.Activities;
 using MassTransit.Worker.Consumers;
 using MassTransit.Worker.Database;
 using MassTransit.Worker.Sagas;
+using MassTransit.Worker.Sagas.DocumentApproval;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry;
 using OpenTelemetry.Resources;
@@ -46,7 +47,7 @@ try
             {
                 x.SetKebabCaseEndpointNameFormatter();
 
-                //x.SetInMemorySagaRepositoryProvider();
+                x.SetInMemorySagaRepositoryProvider();
 
                 x.AddSagaStateMachine<OrderStateMachine, OrderState>()
                         .EntityFrameworkRepository(r =>
@@ -65,6 +66,7 @@ try
                         r.UseSqlServer();
                     });
 
+                x.AddSagaStateMachine<DocumentApprovalSaga, DocumentApprovalSagaState>().InMemoryRepository();
 
                 x.AddConsumer<PingMessageSendConsumer>().Endpoint(e => e.Name = "ping-queue");
                 //x.AddConsumer<PingMessageSendConsumer, PingMessageConsumerDefinition>();

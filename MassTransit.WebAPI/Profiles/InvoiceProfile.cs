@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using MassTransit.Contracts.DocumentApprovalEvents;
 using MassTransit.Contracts.InvoiceStateMachine;
 using MassTransit.WebAPI.Models;
+using MassTransit.WebAPI.Requests;
 
 namespace MassTransit.WebAPI.Profiles;
 
@@ -18,6 +20,9 @@ public class InvoiceProfile : Profile
             .ReverseMap();
 
         CreateMap<CurrentInvoiceState, InvoiceModel>()
+            .ReverseMap();
+
+        CreateMap<DocumentSubmissionRequest, DocumentSubmitted>()
             .ReverseMap();
     }
 }
