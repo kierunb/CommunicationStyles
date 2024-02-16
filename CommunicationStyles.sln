@@ -50,6 +50,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FaultyWebAPI.LoadTests", "F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gfx", "gfx", "{6EA462F9-EA07-45B7-A7FD-A3CA18AADCC7}"
 	ProjectSection(SolutionItems) = preProject
+		gfx\architecture-with-saga.webp = gfx\architecture-with-saga.webp
 		gfx\order-saga-happy-path.webp = gfx\order-saga-happy-path.webp
 		gfx\order-saga-payment-failed.webp = gfx\order-saga-payment-failed.webp
 		gfx\saga.png = gfx\saga.png
