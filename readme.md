@@ -78,7 +78,7 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
     - [Automatonymous Docs](https://automatonymous.readthedocs.io/en/latest/)
     - [Sagas Samples](https://github.com/MassTransit/Sample-Library)
     - [State Machines vs Sequential Workflows](https://dpcrew.wordpress.com/2015/04/27/state-machine-or-sequential-workflows-what-is-the-future-of-business-processes/)
-    - [State Machines vs Sequential Workflows](https://sharepoint.stackexchange.com/questions/85879/difference-between-sequential-workflow-state-machine-workflow)
+    - [State Machines vs Sequential Workflows 2](https://sharepoint.stackexchange.com/questions/85879/difference-between-sequential-workflow-state-machine-workflow)
 - Mass Transit Samples:
     - [Sample-DotNetConf](https://github.com/phatboyg/Sample-DotNetConf)
     - [Sample-JobConsumers](https://github.com/MassTransit/Sample-JobConsumers)
