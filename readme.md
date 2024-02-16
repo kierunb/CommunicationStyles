@@ -74,13 +74,21 @@ docker run --name rabbitmq -d -p 15672:15672 -p 5672:5672 masstransit/rabbitmq
     - [Producer](https://masstransit.io/documentation/concepts/producers)
     - [Request/Response](https://masstransit.io/documentation/concepts/requests)
     - [Sagas](https://masstransit.io/documentation/patterns/saga)
+    - [Automatonymous - legacy project](https://github.com/MassTransit/Automatonymous)
+    - [Automatonymous Docs](https://automatonymous.readthedocs.io/en/latest/)
+    - [Sagas Samples](https://github.com/MassTransit/Sample-Library)
     - [State Machines vs Sequential Workflows](https://dpcrew.wordpress.com/2015/04/27/state-machine-or-sequential-workflows-what-is-the-future-of-business-processes/)
+    - [State Machines vs Sequential Workflows](https://sharepoint.stackexchange.com/questions/85879/difference-between-sequential-workflow-state-machine-workflow)
 - Mass Transit Samples:
     - [Sample-DotNetConf](https://github.com/phatboyg/Sample-DotNetConf)
     - [Sample-JobConsumers](https://github.com/MassTransit/Sample-JobConsumers)
     - [Sample-Twitch](https://github.com/MassTransit/Sample-Twitch)
     - [SuuCat-Sample-MicroserviceApp](https://github.com/ebubekirdinc/SuuCat)
     - [Saga State Machine & MassTransit](https://github.com/bariscantanriverdi/SagaStateMachine-Async-Messaging/)
+    - [Sagas Tutorial 1](https://medium.com/adessoturkey/saga-state-machine-masstransit-automatonymous-request-response-pattern-10f14603964)
+    - [Sagas Tutorial 2](https://medium.com/@ebubekirdinc/saga-orchestration-using-masstransit-in-net-9a2fcb427c1a)
+    - [Sagas Tutorial 3](https://blog.stackademic.com/implementation-of-saga-orchestration-using-masstransit-dd238530f0d7)
+    - [Sagas Tutorial 4](https://medium.com/adessoturkey/saga-state-machine-masstransit-automatonymous-request-response-pattern-10f14603964)
 
 ### MassTransit Demos
 
